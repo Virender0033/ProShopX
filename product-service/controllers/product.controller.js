@@ -7,21 +7,15 @@ import fs from 'fs';
 
 const createProduct = asyncHandler(async (req,res) =>{
     const {name, description, price, brand, stock, category} = req.body;
-    console.log("req.body:", req.body);
 
     const image = req.file?.path || null;
     const imagePublicId = req.file?.filename;
-
-    
-    console.log("req.file: " , req.file);
-    console.log(image)
 
     if(!name || !price){
         throw new ApiError(400, "Name and Price are required")
     }
 
     const product = await Product.create({name, price, description, category, brand, stock, image, imagePublicId});
-    console.log(product)
 
     res.status(201).json(
         new ApiResponse(201,product, "Product created successfully")
