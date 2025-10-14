@@ -27,7 +27,7 @@ const createOrder = asyncHandler(async(req, res) =>{
 });
 
 const getMyOrders = asyncHandler(async(req,res)=>{
-    const orders = await Order.find({user: req.user._id}).sort({createdAt: -1});
+    const orders = await Order.find({user: req.user.id}).sort({createdAt: -1});
     
     res.status(200).json(
         new ApiResponse(
