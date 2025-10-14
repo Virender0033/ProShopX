@@ -22,14 +22,19 @@ const dailyOrders = asyncHandler(async (req, res) => {
     },
     { $match: { createdAtDate: { $gte: from } } },
     {
-      $group: {
-        _id: {
+      $addFields: {
+        dateString :{
           $dateToString: {
             format: "%Y-%m-%d",
             date: "$createdAtDate",
             timezone: "UTC",
           },
-        },
+        }
+      }
+    },
+    {
+      $group: {
+        _id: "$dateString",
         count: { $sum: 1 },
       },
     },
@@ -78,14 +83,19 @@ const monthlyRevenue = asyncHandler(async (req, res) => {
     },
     { $match: { createdAtDate: { $gte: start } } },
     {
-      $group: {
-        _id: {
+      $addFields:{
+        monthString :{
           $dateToString: {
             format: "%Y-%m",
             date: "$createdAtDate",
             timezone: "UTC",
           },
-        },
+        }
+      }
+    },
+    {
+      $group: {
+        _id: "$monthString",
         revenue: { $sum: "$totalAmount" },
       },
     },
