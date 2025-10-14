@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(errorMiddleware);
-app.use('/api/auth', authRoutes)
+app.use('/api/v1/auth', authRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>{

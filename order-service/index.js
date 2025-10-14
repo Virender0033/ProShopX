@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use('/api/orders',orderRoutes);
+app.use('/api/v1/orders',orderRoutes);
 app.use(errorMiddleware);
 
 mongoose.connect(process.env.MONGODB_URI,{
